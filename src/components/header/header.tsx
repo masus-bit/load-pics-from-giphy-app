@@ -1,17 +1,19 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Operations } from "../reducer/operations";
+
 interface Properties {
-  pics: object;
+pics:object,
   onLoadClick: any;
 }
 const Header = (props: Properties) => {
-  const { onLoadClick, pics } = props;
-  console.log(pics);
+  const { onLoadClick,pics } = props;
+ 
+ 
   return (
     <React.Fragment>
       <header className="header">
-        <input type="text" className="input" placeholder="Введите тег" />
+        <input type="text" className="input" id="tag" placeholder="Введите тег" />
         <button className="load" onClick={() => onLoadClick("cat")}>
           Загрузить
         </button>
@@ -22,15 +24,15 @@ const Header = (props: Properties) => {
   );
 };
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state?: any) => {
   return {
-    pics: state.pics,
+pics:state.pics
   };
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {
     onLoadClick: (tag: string) => {
-      dispatch(Operations.loadData(tag));
+        dispatch(Operations.loadData(tag));
     },
   };
 };

@@ -8,8 +8,9 @@ import { compose } from "recompose";
 
 import {App} from './app';
 import { reducer } from './components/reducer/reducer';
-
-const api = createApi((...args:any) => store.dispatch(...args));
+import { ActionCreator } from './components/reducer/operations';
+ // @ts-ignore: Unreachable code error
+const api = createApi((...args) => store.dispatch(...args));
 export const store = createStore(
     reducer,
     compose(
@@ -19,12 +20,9 @@ export const store = createStore(
         : (f:any) => f
     )
   );
-interface anus{
-    govno : string,
-    ehe?:number,
 
-}
 const init=()=>{
+
     ReactDOM.render(
         <Provider store={store}>
         <App/>
