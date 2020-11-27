@@ -22,7 +22,11 @@ switch(action.type){
         })
     case actionType.COMBO_TAG:
         return Object.assign({}, state,{
-            comboTags:state.comboTags.concat(action.payload)
+            comboTags:action.payload
+        })
+    case actionType.JOIN:
+        return Object.assign({},state,{
+            pictures:state.pictures.concat(action.payload)
         })
 }
 return state

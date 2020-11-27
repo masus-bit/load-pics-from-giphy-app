@@ -12,17 +12,20 @@ interface tagsArr {
   [index: number]: string;
 }
 export interface Properties {
+  comboTags?:Arra
   key?:string
   pictures?: Arra;
   tags?: tagsArr;
   onLoadClick?: any;
   onClearClick?: any;
   onGroupClick?: any;
+  onJoin?:any
 }
 
 const Header = (props: Properties) => {
-  const { onLoadClick, pictures, onClearClick, onGroupClick, tags } = props;
+  const { onLoadClick, pictures, onClearClick, onGroupClick, tags, comboTags, onJoin  } = props;
   const [grouped, setGroup] = useState(false);
+  console.log(comboTags)
   return (
     <React.Fragment>
       <header className="header">
@@ -34,8 +37,10 @@ const Header = (props: Properties) => {
             const target = evt.target as HTMLTextAreaElement;
             const tag = (target.querySelector(`#tag`) as HTMLInputElement)
               .value;
+              
             tag.length === 0 ? alert("заполните поле тег") : 
-            tag.indexOf(',')?onLoadClick(tag.split(',')):onLoadClick(tag);
+            tag.indexOf(',')!==-1 ?onLoadClick(tag.split(','),comboTags):onLoadClick(tag);
+           
            
           }}
         >
@@ -84,12 +89,13 @@ const mapStateToProps = (state?: any) => {
   return {
     pictures: state.pictures,
     tags: state.tags,
+    comboTags:state.comboTags
   };
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    onLoadClick: (tag: string) => {
-      dispatch(Operations.loadToStore(tag));
+    onLoadClick: (tag: string, comboTags:any) => {
+      dispatch(Operations.loadToStore(tag,comboTags));
     },
     onClearClick: () => {
       dispatch(ActionCreator.clearAll());
@@ -97,6 +103,9 @@ const mapDispatchToProps = (dispatch: any) => {
     onGroupClick: (pictures: Properties) => {
       dispatch(ActionCreator.group(pictures));
     },
+    onJoin:(comboTags:Properties,tag:any)=>{
+      dispatch(ActionCreator.join(comboTags,tag))
+    }
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
