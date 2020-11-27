@@ -9,9 +9,17 @@ const createApi = (dispatch?:any) => {
     withCredentials: false,
   });
 
-  const onSuccess = (response?:any) => response;
+  const onSuccess = (response?:any) => {
+    console.log()
+    if(response.data.data.length===0){
+alert("по тегу ничего не найдено")
+    }else{
+    return response
+  }
+}
+  
   const onFail = (err?:any) => {
-
+    alert("Произошла ошибка http")
     return err;
   };
 
