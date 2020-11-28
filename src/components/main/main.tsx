@@ -8,7 +8,6 @@ const Main = (props: Properties) => {
         {(pictures as any).map((it: any) => {
           return (
             <div className="pic-block" key={it.data}>
-              {console.log(it.hasOwnProperty("result"))}
               {it.hasOwnProperty("result") ? (
                 <div className="pic-big">
                   {it.result.map((item: any) => (

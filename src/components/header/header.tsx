@@ -22,6 +22,7 @@ export interface Properties {
 
 const Header = (props: Properties) => {
   const { onLoadClick, pictures, onClearClick, onGroupClick, tags } = props;
+  //хук для смены группировки
   const [grouped, setGroup] = useState(false);
 
   return (
@@ -35,7 +36,7 @@ const Header = (props: Properties) => {
             const target = evt.target as HTMLTextAreaElement;
             const tag = (target.querySelector(`#tag`) as HTMLInputElement)
               .value;
-
+            //Проверка поля ввода по клику на Загрузить, если присутствуют запятые, в функцию передается другой тип данных.
             tag.length === 0
               ? alert("заполните поле тег")
               : tag.indexOf(",") !== -1
@@ -49,6 +50,7 @@ const Header = (props: Properties) => {
             id="tag"
             placeholder="Введите тег"
             onKeyUp={(evt) => {
+              //Правила для инпута
               (evt.target as HTMLInputElement).value = (evt.target as HTMLInputElement).value.replace(
                 /[\d А-Яа-яЁё \s !@#$%^&*()_+.?}{]/g,
                 ""

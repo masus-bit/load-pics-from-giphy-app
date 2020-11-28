@@ -36,15 +36,18 @@ export const ActionCreator = {
 };
 
 export const Operations = {
+  //Загрузка в хранилище.
   loadToStore: (tag: string & Properties) => (
     dispatch: any,
     _getState: any,
     api: any
   ) => {
+    //проверка типа данных тэга, 
     if (typeof tag == "string" && tag !== "delay") {
       return api.get(`${tag}`).then((response: any) => {
         dispatch(ActionCreator.loadToStore(response.data.data.image_url, tag));
       });
+      //если тип массив, то выполняются параллельные запросы
     } else if (Array.isArray(tag)) {
       const result: any = [];
       const promisesList: any = [];
